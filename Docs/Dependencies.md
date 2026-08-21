@@ -1,27 +1,19 @@
-# Dependencies
+# Team & External Dependencies
 
-이 Repository는 단독 컴파일을 지원하지 않습니다. 다른 팀원의 코드를 가져오거나 Stub을 새로 작성하는 대신 원본 의존성을 문서로 남깁니다.
+DoDoDoIt!은 팀 프로젝트이기 때문에 제가 구현한 Rope 코드도 팀 공용 Player 시스템과 외부 Unity 기능을 사용합니다.
 
-| 전시 코드 | 의존 시스템 | 소유권 | 처리 |
-|---|---|---|---|
-| Rope States | `PlayerController` | 팀 중심 공동 코드 | 복사하지 않음 |
-| Rope States | `IPlayerState`, `PlayerStateMachine` | 팀원 중심 | 복사하지 않음 |
-| Rope 이동 | Rigidbody, Transform | Unity | 코드 API 사용만 유지 |
-| Rope 표현 | Animator, LineRenderer | Unity | Scene/Animator/Material 미포함 |
-| Rope 수치 | `PlayerStats`, Attributes | 팀 시스템 | 복사하지 않음 |
-| Target Detector | Running/Jump/Falling States | 팀 중심 공동 코드 | 호출 관계만 문서화 |
-| Target Effect | `Managers.Resource`, `Util` | 팀 시스템 | 복사하지 않음 |
-| Camera | `CameraManager` | 타인 작성 | 복사하지 않음 |
-| Camera | Cinemachine Virtual Camera | Unity Package | Package와 Prefab 미포함 |
-| Rope Sound | `SoundManager` | 본인 중심 공동 코드 | 이번 Source에서 제외 |
-| Sound | FMOD | 외부 middleware | Package와 Bank 미포함 |
-| Curve Effect | `Managers.Resource` | 팀 시스템 | 복사하지 않음 |
+| 제 코드 | 연결된 시스템 | 구분 |
+|---|---|---|
+| Rope States | `PlayerController` | 팀 공용 코드 |
+| Rope States | `IPlayerState`, `PlayerStateMachine` | 팀 공용 코드 |
+| Rope 이동 | Rigidbody, Transform | Unity |
+| Rope 표현 | Animator, LineRenderer | Unity |
+| Rope 수치 | `PlayerStats`, Attributes | 팀 공용 코드 |
+| Target 입력 | Running/Jump/Falling States | 팀 공용 코드 |
+| Target Effect | `Managers.Resource`, `Util` | 팀 공용 코드 |
+| Camera | `CameraManager` | 팀원 코드 |
+| Camera | Cinemachine Virtual Camera | Unity Package |
+| Sound | `SoundManager` | 본인 중심 공동 코드 |
+| Sound | FMOD | 외부 Middleware |
 
-## 단독 실행을 지원하지 않는 이유
-
-본 저장소의 목적은 게임을 재현하는 것이 아니라 다음을 코드로 검증하는 것입니다.
-
-- 실제 Commit 당시 구현
-- Prototype과 Release의 구조 차이
-- 본인 코드와 팀 시스템의 경계
-- 실제 문제를 수정한 Git 이력
+이 저장소에는 제가 보여주려는 Rope·Camera 코드만 담았습니다. Player 공용 시스템, Scene, Prefab과 외부 Asset은 복사하지 않았기 때문에 단독 실행용 Unity 프로젝트는 아닙니다.
