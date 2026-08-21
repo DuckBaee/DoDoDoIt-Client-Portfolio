@@ -17,7 +17,7 @@ SpringJoint Prototype
 
 - Commit: `1ff69ecb`, 2024-09-14
 - 최초 추가: `28e86a2b`, 2024-09-11
-- 파일: `RopeActionWithRunning.cs`
+- 코드: [`RopeActionWithRunning.ShootRope`](../Evolution/RopeAction/01_Prototype01/RopeActionWithRunning.cs#L67-L93)
 
 마우스 위치에서 Raycast를 쏘고, 충돌한 `RaycastHit.point`에 Rope를 연결했습니다. Player에는 SpringJoint를 런타임으로 추가했습니다.
 
@@ -28,7 +28,7 @@ SpringJoint Prototype
 ## 2. Prototype 02 — 고정 반경 Swing
 
 - Commit: `51c040b8`, 2024-09-26
-- 파일: `PlayerGrapplingState.cs`
+- 코드: [Target 탐색](../Evolution/RopeAction/02_Prototype02/PlayerGrapplingState.cs#L85-L102) · [고정 반경 Swing](../Evolution/RopeAction/02_Prototype02/PlayerGrapplingState.cs#L104-L147)
 
 SpringJoint 대신 제가 Rope 구간의 이동 규칙을 직접 계산했습니다.
 
@@ -55,6 +55,10 @@ SpringJoint 대신 제가 Rope 구간의 이동 규칙을 직접 계산했습니
 
 이 Commit에서 Enter와 Exit State, RopeSystem을 추가했고 기존 Grappling State의 책임을 줄였습니다.
 
+- [Enter 코드](../Evolution/RopeAction/03_LifecycleSplit/PlayerEnterGrapllingState.cs#L18-L91)
+- [Swing 코드](../Evolution/RopeAction/03_LifecycleSplit/PlayerGrapplingState.cs#L43-L80)
+- [Exit 코드](../Evolution/RopeAction/03_LifecycleSplit/PlayerExitGrapllingState.cs#L13-L55)
+
 ## 4. Release
 
 - Snapshot: `c0247122`, 2024-12-05
@@ -62,6 +66,8 @@ SpringJoint 대신 제가 Rope 구간의 이동 규칙을 직접 계산했습니
 ### Target 탐색
 
 `GrapplePointDetector`에서 미리 만든 Collider 배열과 `OverlapSphereNonAlloc`을 사용했습니다. 후보는 Linkable Layer, Player 전방 각도와 Dot product 조건을 통과해야 합니다.
+
+→ [Release Target Detection 코드](../Evolution/RopeAction/04_Release/Targeting/GrapplePointDetector.cs#L84-L133)
 
 ```text
 OverlapSphereNonAlloc
@@ -79,6 +85,8 @@ OverlapSphereNonAlloc
 - Ground 진입 중에도 전방 이동 유지
 - FMOD 연결 단계 parameter 적용
 
+→ [Release Enter 코드](../Evolution/RopeAction/04_Release/LinearRope/PlayerEnterGrapllingState.cs#L16-L96)
+
 ### Swing
 
 - Player forward 방향으로 전진 속도 적용
@@ -86,10 +94,14 @@ OverlapSphereNonAlloc
 - Target 기준 고정 반경 보정
 - 높이와 최소 Swing 조건으로 Exit 전환
 
+→ [Release Swing 코드](../Evolution/RopeAction/04_Release/LinearRope/PlayerGrapplingState.cs#L45-L69)
+
 ### 종료
 
 - Player forward 방향으로 이탈 속도 적용
 - Curve 방향을 반영해 Player와 GFX 회전 복구
 - Running 상태로 복귀
+
+→ [Release Exit 코드](../Evolution/RopeAction/04_Release/LinearRope/PlayerExitGrapllingState.cs#L14-L72)
 
 Release에서는 일반 Rope에 Rotation Rope와 Curve 방향 처리를 추가하고, 같은 상태 흐름을 Cinemachine과 FMOD에도 연결했습니다.
