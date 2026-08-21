@@ -1,0 +1,8 @@
+# Preserve extracted C# snapshots byte-for-byte.
+*.cs -text
+
+# Original snapshots intentionally keep their historical whitespace.
+*.cs -whitespace
+
+# Keep documentation consistent on GitHub.
+*.md text eol=lf
